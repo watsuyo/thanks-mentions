@@ -14,7 +14,6 @@
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.2.2",
     "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/pwa": "^3.0.0-0",
     "firebase": "^7.2.2",
     "firebase-admin": "^8.6.1",

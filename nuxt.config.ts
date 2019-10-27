@@ -1,4 +1,28 @@
-export default {
+import { environments } from './src/plugins/environments'
+
+if (!process.env.CI) {
+  Object.entries(environments).forEach(([key, value]) => {
+    if ([
+      'browser',
+      'client',
+      'mode',
+      'modern',
+      'server',
+      'static',
+      'FIREBASE_API_KEY',
+      'FIREBASE_AUTH_DOMAIN',
+      'FIREBASE_DATABASE_URL',
+      'FIREBASE_PROJECT_ID',
+      'FIREBASE_STORAGE_BUCKET',
+      'FIREBASE_MESSAGING_SENDER_ID',
+      'FIREBASE_APP_ID'
+    ].includes(key)) {
+      return
+    }
+  })
+}
+
+const config = {
   srcDir: 'src',
   mode: 'universal',
   /*
@@ -29,7 +53,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    '/src/plugins/firebase.ts'
+    '~/plugins/firebase.ts'
   ],
   /*
    ** Nuxt.js dev-modules
@@ -39,14 +63,24 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxt/typescript-build'
   ],
+
+  env: {
+    FIREBASE_API_KEY:'AIzaSyDjAcOjZ2HzwaObknB22eJTAOw54VgVl_Q',
+    FIREBASE_AUTH_DOMAIN:'thanks-mentions.firebaseapp.com',
+    FIREBASE_DATABASE_URL:'https://thanks-mentions.firebaseio.com',
+    FIREBASE_PROJECT_ID:'thanks-mentions',
+    FIREBASE_STORAGE_BUCKET:'thanks-mentions.appspot.com',
+    FIREBASE_MESSAGING_SENDER_ID:'406710490580',
+    FIREBASE_APP_ID:'1:406710490580:web:3c8565f09062b351977241'
+  },
+
   /*
    ** Nuxt.js modules
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/pwa'
   ],
   /*
    ** Axios module configuration
@@ -79,3 +113,5 @@ export default {
     }
   }
 }
+
+export default config
