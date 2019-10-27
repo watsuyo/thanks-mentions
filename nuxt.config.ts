@@ -28,7 +28,9 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    '/src/plugins/firebase.ts'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -43,7 +45,8 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/dotenv'
   ],
   /*
    ** Axios module configuration
@@ -58,5 +61,21 @@ export default {
    */
 
   build: {
+  },
+
+  pwa: {
+    manifest: {
+      name: 'thanks-mentions',
+      short_name:'thanks-mentions',
+      lang: 'ja',
+      share_target: {
+        action: "/share",
+        params: {
+          title: "name",
+          text: "description",
+          url: "link"
+        }
+  }
+    }
   }
 }

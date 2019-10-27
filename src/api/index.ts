@@ -17,6 +17,26 @@ app.get('/', (req: any, res: any) => {
   console.log('HelloGetWorld')
 })
 
+// const url = location.href
+// const title = document.title
+// console.log(title + '\n' + url);
+
+// const https = require('https')
+
+// const index = url.indexOf('/items')
+// const userPageUrl = url.substring(0, index)
+
+// https.get(userPageUrl, (res: any) => {
+//   let html: string
+//   res.on('data', (line: any) => html += line)
+//   res.on('end', () => {
+//     const before = html.indexOf('twitter"><a target="_blank" href="https://twitter.com/')
+//     const editedHTML = html.slice(before + 54)
+//     const after = editedHTML.indexOf('">')
+//     const twitterId = editedHTML.slice(0,after)
+//   })
+// })
+
 app.post('/sendMail', (req: any, res: any) => {
   const options = {
     method: 'POST',
