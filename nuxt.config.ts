@@ -88,8 +88,6 @@ const config = {
    */
   axios: {},
 
-  serverMiddleware: ["~/api"],
-
   /*
    ** Build configuration
    */

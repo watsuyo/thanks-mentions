@@ -1,58 +1,80 @@
 <template>
-  <div>
-    <p>シェアする内容</p>
-    <div>
-      <p>記事タイトル</p>
-      <input type="text" :value="shareTitle" />
-    </div>
-    <div>
-      <p>shareUrl</p>
-      <input type="text" :value="shareUrl" />
-    </div>
-    <div>
-      <p>メンション先</p>
-      {{ userId }}
-      {{ test }}
-      <input type="text" :value="userId" />
+  <div class="container">
+    <div class="content">
+      <div class="content__title">
+        シェアする内容
+      </div>
+      <div>
+        <textarea
+          cols="30"
+          rows="10"
+          type="text"
+          class="textarea"
+          :value="shareContent"
+        ></textarea>
+      </div>
+      <div>
+        <button class="content__button">
+          共有する
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import searchAccount from '../api/searchAccount'
+import axios from 'axios'
 import handler from '../api/handler'
 
+interface localData {
+  shareContent: string[]
+}
+
 export default Vue.extend({
-  data() {
+  data(): localData {
     return {
-      test: {}
+      shareContent: []
     }
   },
   computed: {
-    shareTitle() {
-      const shareTitle = process.browser && this.$route.query.name
-      return shareTitle
+    shareTitle(): string {
+      return this.$route.query.name.toString()
     },
-    shareUrl() {
-      const shareUrl = process.browser && this.$route.query.description
-      return shareUrl
-    },
-    userId() {
-      handler
-        .searchAccount('/api/searchAccount', (this as any).shareUrl)
-        .then((res) => res.data)
-        .catch((err) => err)
-      handler
-        .result('/api/result')
-        .then((res) => {
-          this.test = res
-        })
-        .catch((err) => err)
-      return 'aa'
+    shareUrl(): string {
+      return this.$route.query.description.toString()
     }
+  },
+  async mounted() {
+    const qiitaId = (this as any).shareUrl.split('/')[3]
+
+    const res = await (this as any).$axios.$get(
+      `https://qiita.com/api/v2/users/${qiitaId}`
+    )
+
+    const twitterId = `@${res.twitter_screen_name}`
+    this.shareContent.push(
+      this.shareTitle,
+      this.shareUrl,
+      '#thanks_mentions',
+      twitterId
+    )
   }
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="stylus" scoped>
+.container
+  text-align center
+
+.content
+  margin-top 20%
+
+  &__title, &__button
+    margin 20px
+
+.textarea
+  border 0
+  border-bottom 1px solid #1b2538
+  width 50%
+</style>
