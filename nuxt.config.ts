@@ -116,7 +116,7 @@ const config = {
           text: "description",
           url: "link"
         }
-  }
+      }
     }
   }
 }

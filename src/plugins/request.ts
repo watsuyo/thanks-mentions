@@ -1,42 +1,44 @@
 import axios from 'axios'
 
+const apiBaseUrl = '/api';
+
 type TODO = any
 
 export default {
   get(url: string) {
     return axios({
       method: 'GET',
-      url: url
+      url: `${apiBaseUrl}${url}`
     })
     .then(res => res.data)
     .catch(err => err)
   },
 
-  post(url: string, config: TODO) {
+  post(url: string, params: TODO) {
     return axios({
       method: 'POST',
-      url: url,
-      ...config
+      url: `${apiBaseUrl}${url}`,
+      ...params
     })
     .then(res => res.data)
     .catch(err => err)
   },
 
-  put(url: string, config: TODO) {
+  put(url: string, params: TODO) {
     return axios({
       method: 'PUT',
-      url: url,
-      ...config
+      url: `${apiBaseUrl}${url}`,
+      ...params
     })
     .then(res => res.data)
     .catch(err => err)
   },
 
-  delete(url: string, config: TODO) {
+  delete(url: string, params: TODO) {
     return axios({
       method: 'DELETE',
-      url: url,
-      ...config
+      url: `${apiBaseUrl}${url}`,
+      ...params
     })
     .then(res => res.data)
     .catch(err => err)
