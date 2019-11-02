@@ -102,6 +102,13 @@ const config = {
       name: 'thanks-mentions',
       short_name:'thanks-mentions',
       lang: 'ja',
+      start_url: '/',
+      display: 'standalone',
+      icons: [{
+        src: 'src/static/icon.png',
+        sizes: '144*144',
+        type: 'image/png'
+      }],
       share_target: {
         action: "/share",
         params: {

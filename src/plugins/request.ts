@@ -1,17 +1,18 @@
 import axios from 'axios'
 
+type TODO = any
+
 export default {
-  get(url: string, config: any) {
+  get(url: string) {
     return axios({
       method: 'GET',
-      url: url,
-      ...config
+      url: url
     })
     .then(res => res.data)
     .catch(err => err)
   },
 
-  post(url: string, config: any) {
+  post(url: string, config: TODO) {
     return axios({
       method: 'POST',
       url: url,
@@ -21,7 +22,7 @@ export default {
     .catch(err => err)
   },
 
-  put(url: string, config: any) {
+  put(url: string, config: TODO) {
     return axios({
       method: 'PUT',
       url: url,
@@ -31,7 +32,7 @@ export default {
     .catch(err => err)
   },
 
-  delete(url: string, config: any) {
+  delete(url: string, config: TODO) {
     return axios({
       method: 'DELETE',
       url: url,

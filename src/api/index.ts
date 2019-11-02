@@ -4,6 +4,8 @@ const request = require('request')
 
 const app = express()
 
+let ids: any = []
+
 app.use(bodyParser.urlencoded({
     extended: true
 }))
@@ -17,45 +19,36 @@ app.get('/', (req: any, res: any) => {
   console.log('HelloGetWorld')
 })
 
-// const url = location.href
-// const title = document.title
-// console.log(title + '\n' + url);
+app.post('/searchAccount', (req: any, res: any) => {
+  const descIndex = req.headers.referer.indexOf('description=')
+  const url = decodeURIComponent(req.headers.referer.slice(descIndex + 12))
 
-// const https = require('https')
+  const https = require('https')
 
-// const index = url.indexOf('/items')
-// const userPageUrl = url.substring(0, index)
+  const itemIndex = url.indexOf('/items')
+  const userPageUrl = url.substring(0, itemIndex)
 
-// https.get(userPageUrl, (res: any) => {
-//   let html: string
-//   res.on('data', (line: any) => html += line)
-//   res.on('end', () => {
-//     const before = html.indexOf('twitter"><a target="_blank" href="https://twitter.com/')
-//     const editedHTML = html.slice(before + 54)
-//     const after = editedHTML.indexOf('">')
-//     const twitterId = editedHTML.slice(0,after)
-//   })
-// })
-
-app.post('/sendMail', (req: any, res: any) => {
-  const options = {
-    method: 'POST',
-    json: true,
-    url: '',
-    headers: {
-      "content-type": "application/json"
-    },
-    body: req.body
-  }
-  request(options, (err: any, res: any, body: any) => {
-    if (!err) {
-      res.send(body)
-    }
-    else {
-      res.end('Internal Server Error')
-    }
+  https.get(userPageUrl, async (res: any) => {
+    let html: string
+    res.on('data', (line: any) => html += line)
+    res.on('end', async () => {
+      const before = html.indexOf('twitter"><a target="_blank" href="https://twitter.com/')
+      if(before === -1) return console.log('Twitterアカウントを見つけられませんでした。')
+      const editedHTML = html.slice(before + 54)
+      const after = editedHTML.indexOf('">')
+      const twitterId = editedHTML.slice(0,after)
+      let aa = () => {
+        ids.push(twitterId)
+      }
+      await aa()
+    })
   })
-  res.end()
+})
+
+app.get('/result', (req: any, res: any) => {
+  res.json({
+    message:"Hello,world"
+  })
 })
 
 
