@@ -6,15 +6,16 @@
       </div>
       <div>
         <textarea
+          v-model="shareContent.text"
           cols="30"
           rows="10"
           type="text"
           class="textarea"
-          :value="shareContent"
         ></textarea>
       </div>
+      {{ err }}
       <div>
-        <button class="content__button">
+        <button class="content__button" @click="share">
           共有する
         </button>
       </div>
@@ -25,16 +26,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import axios from 'axios'
-import handler from '../api/handler'
-
-interface localData {
-  shareContent: string[]
-}
 
 export default Vue.extend({
-  data(): localData {
+  data() {
     return {
-      shareContent: []
+      shareContent: {
+        text: ''
+      },
+      err: ''
     }
   },
   computed: {
@@ -53,12 +52,32 @@ export default Vue.extend({
     )
 
     const twitterId = `@${res.twitter_screen_name}`
-    this.shareContent.push(
-      this.shareTitle,
-      this.shareUrl,
-      '#thanks_mentions',
-      twitterId
-    )
+    this.shareContent.text =
+      this.shareTitle +
+      '\n' +
+      this.shareUrl +
+      '\n' +
+      '#thanks_mentions' +
+      '\n' +
+      '\n' +
+      twitterId +
+      '\n'
+  },
+  methods: {
+    share() {
+      if (navigator.canShare && navigator.canShare(this.shareContent)) {
+        navigator
+          .share(this.shareContent)
+          .then(() => {
+            console.log('error')
+          })
+          .catch((err: any) => {
+            ;(this as any).err = err
+          })
+      } else {
+        alert('this environment is not support')
+      }
+    }
   }
 })
 </script>
