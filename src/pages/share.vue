@@ -1,24 +1,22 @@
 <template>
-  <div class="container">
-    <div class="content">
-      <div class="content__title">
-        シェアする内容
-      </div>
-      <div>
-        <textarea
-          v-model="shareContent.text"
-          cols="30"
-          rows="10"
-          type="text"
-          class="textarea"
-        ></textarea>
-      </div>
-      {{ err }}
-      <div>
-        <button class="content__button" @click="share">
-          共有する
-        </button>
-      </div>
+  <div>
+    <div class="title">
+      シェアする内容
+    </div>
+    <div>
+      <textarea
+        v-model="shareContent.text"
+        cols="30"
+        rows="10"
+        type="text"
+        class="textarea"
+      />
+    </div>
+    {{ err }}
+    <div>
+      <button class="button" @click="share">
+        共有する
+      </button>
     </div>
   </div>
 </template>
@@ -32,8 +30,7 @@ export default Vue.extend({
     return {
       shareContent: {
         text: ''
-      },
-      err: ''
+      }
     }
   },
   computed: {
@@ -65,14 +62,16 @@ export default Vue.extend({
   },
   methods: {
     share() {
-      if (navigator.canShare && navigator.canShare(this.shareContent)) {
-        navigator
+      const newVariable: any = window.navigator
+
+      if (newVariable && newVariable.share) {
+        newVariable
           .share(this.shareContent)
           .then(() => {
-            console.log('error')
+            console.log('success')
           })
           .catch((err: any) => {
-            ;(this as any).err = err
+            console.log(err)
           })
       } else {
         alert('this environment is not support')
@@ -83,17 +82,11 @@ export default Vue.extend({
 </script>
 
 <style lang="stylus" scoped>
-.container
-  text-align center
-
-.content
-  margin-top 20%
-
-  &__title, &__button
-    margin 20px
+.title, .button
+  margin 20px
 
 .textarea
   border 0
   border-bottom 1px solid #1b2538
-  width 50%
+  width 80%
 </style>
