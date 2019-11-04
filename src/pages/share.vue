@@ -12,7 +12,6 @@
         class="textarea"
       />
     </div>
-    {{ err }}
     <div>
       <button class="button" @click="share">
         共有する

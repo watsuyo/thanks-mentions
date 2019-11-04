@@ -13,5 +13,5 @@
   text-align center
 
 .content
-  margin-top 15%
+  margin-top 8%
 </style>
