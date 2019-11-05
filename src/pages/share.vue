@@ -48,16 +48,22 @@ export default Vue.extend({
     )
 
     const twitterId = `@${res.twitter_screen_name}`
-    this.shareContent.text =
-      this.shareTitle +
-      '\n' +
-      this.shareUrl +
-      '\n' +
-      '#thanks_mentions' +
-      '\n' +
-      '\n' +
-      twitterId +
-      '\n'
+    if (res.twitter_screen_name !== null) {
+      this.shareContent.text =
+        this.shareTitle +
+        '\n' +
+        this.shareUrl +
+        '\n' +
+        '#thanks_mentions' +
+        '\n' +
+        '\n' +
+        'by ' +
+        twitterId +
+        '\n'
+    } else {
+      this.shareContent.text =
+        this.shareTitle + '\n' + this.shareUrl + '\n' + '#thanks_mentions'
+    }
   },
   methods: {
     share() {
