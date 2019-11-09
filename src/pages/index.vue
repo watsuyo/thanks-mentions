@@ -9,7 +9,7 @@
         <a
           href="https://twitter.com/share?ref_src=twsrc%5Etfw"
           class="twitter-share-button"
-          data-text="Qiitaの記事をメンション付きで共有できるPWA"
+          data-text="Qiitaの記事をメンション付きでシェアできるPWA"
           data-url="http://thanks-mentions.web.app/"
           data-via="watsuyo_2"
           data-hashtags="thanks_mentions"
