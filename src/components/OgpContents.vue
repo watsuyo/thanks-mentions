@@ -10,7 +10,7 @@
     />
     <meta
       property="og:image"
-      content="https://firebasestorage.googleapis.com/v0/b/thanks-mentions.appspot.com/o/OGP.png?alt=media&token=71228a5f-25c5-4c69-ba0e-b1e261c8327a"
+      content="https://firebasestorage.googleapis.com/v0/b/thanks-mentions.appspot.com/o/OGP.png?alt=media&token=4567e6d3-b847-44a9-9c74-28a2fa48e38c"
     />
   </div>
 </template>
